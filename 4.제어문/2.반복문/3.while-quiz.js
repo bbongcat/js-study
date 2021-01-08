@@ -8,7 +8,7 @@
 ex) 정수 3, 7을 입력했을 시 3 + 4 + 5 + 6 + 7 의 총합 25를 출력해야 함!
 */
 
-/*내가 한 것
+// 내가 한 것
 var num1 = +prompt('첫 번째 정수를 입력하세요.');
 var num2 = +prompt('두 번째 정수를 입력하세요.');
 var total = 0;
@@ -18,9 +18,9 @@ while (num1 <= num2) {
     num1++;
 }
 
-var total = alert(`첫 번째 정수와 두 번째 정수의 총합: ${total}입니다.`);
-*/
+var total = alert(`${num1}와 ${num2}의 총합: ${total}입니다.`);
 
+/*
 var begin = +prompt('시작값으로 쓸 정수를 입력하세요.');
 var end = +prompt('끝 값으로 쓸 정수를 입력하세요.');
 
@@ -38,3 +38,4 @@ while (n <= end) {
     n++;
 }
 alert(`${begin}~${end}까지의 총합: ${total}`)
+*/
