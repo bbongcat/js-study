@@ -29,8 +29,12 @@ var scores = [80, 33, 94, 89, 5, 39, 58, 70, 100];
 // 총점 저장 변수
 var total = 0;
 
-for (var i = 0; i < scores.length; i++) {
-    total += scores[i];   
+// for (var i = 0; i < scores.length; i++) {
+//     total += scores[i];   
+// }
+
+for (var score of scores) {
+    total += score;
 }
 
 // 평균 저장 변수
