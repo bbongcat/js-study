@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <ul id="fruits">
+        <li class='apple'>Apple</li>
+        <li class='banana'>Banana</li>
+        <li class='grape'>Grape</li>
+    </ul>
+
+    <ul id="test">
+
+    </ul>
+    
+    <script>
+        // 노드 탐색의 기점이 되는 요소 취득
+        const $fruits = document.getElementById('fruits');
+
+        // childNode : 기준 노드의 모든 자식 노드를 탐색, 텍스트 노드를 포함해서 가져옴 ---쓰지말것
+        const childNodes = $fruits.childNodes;
+        console.log(childNodes);
+
+        // children : 기준 노드의 모든 자식 노드를 탐색, 텍스트 노드를 포함하지 않음
+        const children = $fruits.children;
+        console.log(children);
+
+        // 기준 노드의 첫번째 자식 노드를 탐색
+        console.log($fruits.firstChild); // 쓰지 말 것
+        console.log($fruits.firstElementChild);
+
+        // 기준 노드의 마지막 자식 노드를 탐색
+        console.log($fruits.firstChild); // 쓰지 말 것
+        console.log($fruits.lastElementChild);
+
+        // 기준 노드의 자식 노드 존재 여부 확인, 텍스트 노드가 있을 시 true가 나옴에 주의
+        const $test = document.getElementById('test');
+        console.log($test.hasChildNodes()); //has, is로 시작하는 것들은 대부분 논리값을 반환하는 함수식이므로 뒤에 괄호를 붙일 것
+        
+        // 텍스트 노드를 제외한 요소 노드의 여부를 확인할 때는 children.length를 논리로 바꾸어 사용
+        console.log(!!$test.children.length);
+        
+        </script>
+
+</body>
+</html>
