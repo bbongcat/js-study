@@ -3,7 +3,6 @@ const todos = [];
 
 // 새로운 할 일의 id값을 만들어 주는 함수
 function makeNewId() {
-
     if (todos.length > 0) {
         const lastIndex = todos.length - 1;
         // console.log(todos[lastIndex].id);
@@ -18,6 +17,11 @@ function makeNewToDoNode(newToDo) {
     const $itemLi = document.createElement('li');
     const $label = document.createElement('label');
     const $div = document.createElement('div');
+    const $divMod = document.createElement('div');
+
+    //divMod태그 작업
+    $divMod.classList.add('modify');
+    $divMod.innerHTML = `<span class="lnr lnr-undo"></span>`;
 
     // label 태그 작업
     $label.classList.add('checkbox');
@@ -32,6 +36,7 @@ function makeNewToDoNode(newToDo) {
     $itemLi.dataset.id = newToDo.id;
     $itemLi.classList.add('todo-list-item');
     $itemLi.appendChild($label);
+    $itemLi.appendChild($divMod);
     $itemLi.appendChild($div);
 
     // console.log($itemLi);
@@ -42,12 +47,12 @@ function makeNewToDoNode(newToDo) {
 function insertToDoData() {
 
     const $todoText = document.getElementById('todo-text');
-    
+
     // 사용자가 입력을 하지 않았을 때 함수를 종료 시켜야 함.
     // trim(): 문자열의 앞 뒤 공백을 제거
     if ($todoText.value.trim() === '') {
         $todoText.setAttribute('placeholder', '필수 입력사항입니다');
-        document.querySelector('.todo-insert').style.background = 'red';
+        document.querySelector('.todo-insert').style.background = 'orangered';
         $todoText.value = '';
         return;
     } else {
@@ -76,7 +81,7 @@ function insertToDoData() {
     $todoText.value = '';
 };
 
-// 배열 인덱스 탐색 함수
+// 배열 인덱스 탐색 함수 (dataId 이용)
 function findIndexByDataId(dataId) {
 
     for (let i = 0; i < todos.length; i++) {
@@ -141,6 +146,50 @@ function removeToDoData($delSpan) {
     console.log(todos);
 }
 
+//수정 모드 진입 이벤트 처리 함수 
+function modifyToDoText($modSpan) {
+
+    //label의 span을 input으로 교체
+    const $label = $modSpan.parentElement.previousElementSibling;
+    // console.log($label);
+
+    const $textSpan = $label.lastElementChild;
+    // console.log($textSpan);
+
+    const $modInput = document.createElement('input');
+    $modInput.setAttribute('type', 'text');
+    $modInput.setAttribute('value', $textSpan.textContent);
+    $modInput.classList.add('modify-input');
+    $label.replaceChild($modInput, $textSpan);
+
+    //수정 버튼을 수정 확인버튼으로 변경
+    const $divModify = $modSpan.parentElement;
+    $divModify.innerHTML = '<span class="lnr lnr-checkmark-circle"></span>';
+}
+
+//수정 완료 이벤트 처리 함수
+function setModifyToDoText($modCheckSpan) {
+
+    //수정 완료 텍스트를 input태그에서 추출하여 다시 span.text로 변경
+    const $modInput = $modCheckSpan.parentElement.previousElementSibling.lastElementChild;
+    // console.log($modInput);
+    const $label = $modInput.parentElement;
+    const $textSpan = document.createElement('span');
+    $textSpan.classList.add('text');
+    $textSpan.textContent = $modInput.value;
+
+    //배열 데이터 수정
+    const dataId = +$label.parentElement.dataset.id;
+    const foundIndex = findIndexByDataId(dataId);
+    todos[foundIndex].text = $modInput.value;
+    console.log(todos[foundIndex]);
+
+    //인풋과 텍스트스팬 교체
+    $label.replaceChild($textSpan, $modInput);
+    $modCheckSpan.parentElement.innerHTML = '<span class="lnr lnr-undo"></span>';
+}
+
+
 // 메인 실행 함수
 (function () {
 
@@ -167,7 +216,7 @@ function removeToDoData($delSpan) {
     });
 
     // 할 일 삭제 이벤트
-    $todoList.addEventListener('click', function(e) {
+    $todoList.addEventListener('click', function (e) {
         // console.log(e.target);
         if (!e.target.matches('.todo-list div.remove span')) {
             return;
@@ -176,4 +225,19 @@ function removeToDoData($delSpan) {
         removeToDoData(e.target);
 
     });
+
+    //할 일 수정 이벤트 
+    $todoList.addEventListener('click', function (e) {
+        // console.log(e.target);
+        if (e.target.matches('.todo-list div.modify span.lnr-undo')) {
+            console.log('수정 모드 이벤트 발생!');
+            modifyToDoText(e.target);
+        } else if (e.target.matches('.todo-list div.modify span.lnr-checkmark-circle')) {
+            console.log('수정 확인 이벤트 발생!');
+            setModifyToDoText(e.target);
+        } else {
+            return;
+        }
+    });
+    
 }());
