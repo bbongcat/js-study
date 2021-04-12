@@ -10,12 +10,12 @@ var BANANA = "빠나나";
 console.log(banana);
 console.log(BANANA);
 
-var my-name; //X
-var 79num; //X
+// var my-name; //X
+// var 79num; //X
 var my_name; //O
 var $myname; //O
-var if; //X
-var my phone number; //X
+// var if; //X
+// var my phone number; //X
 
 // 사용자 이름 저장할 때 (변수 이름은 구체적으로!!!)
 // var x; -> X
