@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+<script>
+
+    //fetch POST 요청하기
+    //POST 요청은 GET 요청과 달리 서버로 전달해야 할 데이터들이 있다.
+    const reqInfo = {
+        method: 'POST',
+        headers: {
+            'content-type': 'application/json'
+        },
+        body: JSON.stringify({
+            id: 55,
+            title: 'fetch로 입력하기',
+            author: 'fetch~~'
+        })
+    };
+
+    fetch('http://localhost:5000/posts', reqInfo)
+        .then(res => {
+            if (res.status === '201') {
+                console.log('insert success!');
+            } else {
+                console.log('insert fail!');
+            }
+        });
+</script>
+
+</body>
+</html>

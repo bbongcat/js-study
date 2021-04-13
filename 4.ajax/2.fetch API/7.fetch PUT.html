@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+<script>
+
+    //fetch PUT 요청하기
+    const reqInfo = {
+        method: 'PUT',
+        headers: {
+            'content-type': 'application/json'
+        },
+        body: JSON.stringify({
+            id: 55,
+            title: 'fetch로 수정하기',
+            author: 'mod fetch~~'
+        })
+    };
+
+    fetch('http://localhost:5000/posts/55', reqInfo)
+        .then(res => {
+            if (res.status === '200') {
+                console.log('mod success!');
+            } else {
+                console.log('mod fail!');
+            }
+        });
+</script>
+
+</body>
+</html>
